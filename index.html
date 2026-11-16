@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#17251f">
+    <meta name="description" content="دليلك لاكتشاف البترا وجرش ووادي رم: تاريخ، صور، وفيديوهات من الأردن.">
+    <title>دروب الأردن | دليل سياحي تفاعلي</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            color-scheme: light;
+            --page: #f7f5ef;
+            --surface: #fffefa;
+            --text: #24332b;
+            --muted: #647168;
+            --line: #e7e5dc;
+            --green: #314c3d;
+            --green-dark: #17251f;
+            --sand: #d7ad72;
+            --shadow: 0 18px 50px rgba(34, 47, 38, .09);
+        }
+
+        [data-theme="dark"] {
+            color-scheme: dark;
+            --page: #101826;
+            --surface: #182536;
+            --text: #edf2f4;
+            --muted: #b5c3cf;
+            --line: #304257;
+            --green: #98cbb4;
+            --green-dark: #0c1521;
+            --sand: #eac28a;
+            --shadow: 0 18px 50px rgba(0, 0, 0, .3);
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 85px; }
+        [hidden] { display: none !important; }
+        body {
+            margin: 0;
+            background: var(--page);
+            color: var(--text);
+            font-family: "Cairo", Tahoma, Arial, sans-serif;
+            line-height: 1.8;
+            transition: background-color .25s, color .25s;
+        }
+        a { color: inherit; }
+        button { font: inherit; }
+        .wrap { width: min(1120px, calc(100% - 40px)); margin-inline: auto; }
+
+        .topbar {
+            position: absolute;
+            inset: 0 0 auto;
+            z-index: 5;
+            color: white;
+        }
+        .topbar-inner {
+            min-height: 82px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+        .brand { display: inline-flex; align-items: center; gap: 11px; text-decoration: none; font-weight: 800; font-size: 1.2rem; }
+        .brand-mark { width: 42px; height: 42px; display: grid; place-items: center; }
+        .brand-mark svg { display: block; width: 100%; height: 100%; }
+        .nav-links {
+            display: none; position: absolute; top: 72px; right: max(20px, calc((100vw - 1120px) / 2));
+            width: min(330px, calc(100vw - 40px)); padding: 12px; border: 1px solid rgba(255,255,255,.16);
+            border-radius: 16px; background: #17251f; flex-direction: column; align-items: stretch;
+            gap: 4px; box-shadow: var(--shadow);
+        }
+        .nav-links.open { display: flex; }
+        .nav-links a { color: rgba(255,255,255,.9); text-decoration: none; font-size: .92rem; padding: 9px 11px; border-radius: 9px; }
+        .nav-links a:hover { color: #f3cf9c; background: rgba(255,255,255,.08); }
+        .theme-button {
+            border: 1px solid rgba(255,255,255,.42); border-radius: 999px;
+            background: rgba(15,24,19,.28); color: white; cursor: pointer;
+            padding: 8px 14px; white-space: nowrap;
+        }
+        .menu-button {
+            display: inline-flex; background: rgba(15,24,19,.28); color: white;
+            border: 1px solid rgba(255,255,255,.42); border-radius: 999px;
+            padding: 8px 14px; cursor: pointer; white-space: nowrap;
+        }
+
+        .hero {
+            min-height: 650px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            color: white;
+            background: #26382e url("Project/Media/Images/Wadi%20Rum.JPG/Wadi%20Rum%201.jpg") center 52% / cover no-repeat;
+        }
+        .hero::before {
+            content: ""; position: absolute; inset: 0;
+            z-index: 1;
+            background: linear-gradient(90deg, rgba(13,22,29,.28), rgba(13,22,29,.72) 45%, rgba(13,22,29,.86)),
+                        linear-gradient(0deg, rgba(13,22,29,.42), transparent 58%);
+        }
+        .hero-flag {
+            position: absolute; z-index: 0; left: max(4%, calc((100vw - 1120px) / 2));
+            top: 19%; width: min(39vw, 430px); height: auto; opacity: .72;
+            filter: drop-shadow(0 18px 28px rgba(0,0,0,.32)); transform: rotate(-4deg);
+        }
+        .hero-portrait {
+            position: absolute; z-index: 2; left: max(10%, calc((100vw - 1000px) / 2));
+            bottom: 0; width: min(28vw, 300px); height: 70%; object-fit: cover; object-position: center 14%;
+            border: 4px solid rgba(255,255,255,.84); border-bottom: 0;
+            border-radius: 22px 22px 0 0; box-shadow: 0 20px 48px rgba(0,0,0,.42);
+        }
+        .hero-content { position: relative; z-index: 3; padding-top: 70px; max-width: 720px; }
+        .eyebrow { color: var(--sand); font-size: .88rem; font-weight: 700; letter-spacing: .04em; }
+        .hero h1 { margin: 13px 0 12px; font-size: clamp(2.4rem, 6vw, 4.7rem); line-height: 1.25; }
+        .hero p { color: rgba(255,255,255,.86); font-size: 1.08rem; max-width: 620px; margin: 0 0 28px; }
+        .button {
+            display: inline-flex; align-items: center; justify-content: center;
+            gap: 9px; border: 0; border-radius: 999px; padding: 12px 23px;
+            background: #e8c18c; color: #26342c; text-decoration: none;
+            font-weight: 800; transition: transform .2s, background .2s;
+        }
+        .button:hover { transform: translateY(-2px); background: #f2d4a9; }
+        .hero-note { display: inline-flex; align-items: center; gap: 8px; margin-inline-start: 18px; color: rgba(255,255,255,.83); font-size: .9rem; }
+
+        .quick-facts {
+            position: relative; z-index: 2; margin-top: -48px;
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            background: var(--surface); border-radius: 18px; box-shadow: var(--shadow);
+            border: 1px solid var(--line); overflow: hidden;
+        }
+        .fact { text-align: center; padding: 20px 12px; }
+        .fact + .fact { border-right: 1px solid var(--line); }
+        .fact strong { display: block; font-size: 1.02rem; }
+        .fact span { display: block; color: var(--muted); font-size: .82rem; }
+
+        section { scroll-margin-top: 88px; }
+        .intro { padding: 94px 0 57px; text-align: center; }
+        .section-kicker { color: #a67740; font-weight: 800; font-size: .86rem; }
+        [data-theme="dark"] .section-kicker { color: var(--sand); }
+        .intro h2, .section-heading h2 { margin: 4px 0 10px; font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.4; }
+        .intro p { color: var(--muted); max-width: 670px; margin: 0 auto; }
+
+        .places { padding-bottom: 96px; }
+        .place-card {
+            display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            margin-top: 28px; background: var(--surface); border: 1px solid var(--line);
+            border-radius: 22px; overflow: hidden; box-shadow: var(--shadow);
+        }
+        .place-card:nth-child(even) .place-visual { order: 2; }
+        .place-visual { min-height: 420px; position: relative; background: #9c8060; }
+        .place-visual > img { display: block; width: 100%; height: 100%; min-height: 420px; object-fit: cover; }
+        .place-count {
+            position: absolute; top: 20px; right: 20px; border-radius: 999px;
+            padding: 5px 13px; background: rgba(20,30,24,.75); color: white; font-size: .8rem;
+        }
+        .place-copy { padding: clamp(26px, 4vw, 48px); align-self: center; }
+        .place-copy h3 { font-size: clamp(1.55rem, 3vw, 2rem); margin: 7px 0 12px; line-height: 1.45; }
+        .place-copy > p { color: var(--muted); margin: 0 0 18px; }
+        .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+        .tag { border: 1px solid var(--line); border-radius: 999px; padding: 4px 11px; color: var(--muted); font-size: .78rem; }
+        .highlights { list-style: none; padding: 0; margin: 0 0 22px; display: grid; gap: 7px; }
+        .highlights li { display: flex; gap: 10px; align-items: baseline; font-size: .92rem; }
+        .highlights li::before { content: ""; flex: 0 0 7px; width: 7px; height: 7px; margin-top: .55em; border-radius: 50%; background: #b1814c; }
+        .media-link { color: var(--green); font-weight: 800; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 2px; }
+        .media-link:hover { opacity: .75; }
+
+        .gallery-section { padding: 72px 0 88px; background: var(--surface); border-block: 1px solid var(--line); }
+        .section-heading { text-align: center; margin-bottom: 30px; }
+        .section-heading p { color: var(--muted); margin: 0; }
+        .gallery-reset {
+            border: 1px solid var(--line); border-radius: 999px;
+            padding: 7px 15px; background: transparent; color: var(--green);
+            font: inherit; font-size: .86rem; font-weight: 700; cursor: pointer;
+        }
+        .gallery-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 9px; margin-top: 14px; }
+        .gallery-reset:hover, .gallery-back:hover { background: var(--page); }
+        .gallery-back { border: 1px solid var(--green); border-radius: 999px; padding: 7px 15px; background: var(--green); color: var(--green-dark); font: inherit; font-size: .86rem; font-weight: 800; cursor: pointer; }
+        .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+        .gallery-card { margin: 0; min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 15px; background: var(--page); }
+        .gallery-item {
+            display: block; width: 100%; height: 245px; padding: 0; border: 0;
+            background: var(--line); cursor: zoom-in; position: relative;
+        }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .35s; }
+        .gallery-item:hover img { transform: scale(1.055); }
+        .gallery-item span { position: absolute; inset: auto 0 0; padding: 27px 14px 10px; text-align: right; color: white; background: linear-gradient(transparent, rgba(0,0,0,.68)); font-size: .84rem; }
+        .gallery-card figcaption { min-height: 76px; padding: 10px 13px 13px; color: var(--muted); font-size: .82rem; line-height: 1.75; }
+
+        .videos { padding: 86px 0 94px; }
+        .video-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+        .video-card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+        .video-card video { width: 100%; display: block; aspect-ratio: 16 / 10; background: #17251f; object-fit: cover; }
+        .video-card h3 { margin: 0; padding: 12px 16px 15px; font-size: .98rem; }
+
+        .visit-note {
+            margin-bottom: 88px; padding: clamp(25px, 5vw, 46px);
+            border-radius: 20px; background: var(--green-dark); color: #f4f1e8;
+            display: grid; grid-template-columns: 1fr 1.2fr; gap: 32px; align-items: center;
+        }
+        .visit-note h2 { margin: 0 0 8px; font-size: 1.7rem; }
+        .visit-note p { color: #c4cec5; margin: 0; }
+        .visit-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 20px; }
+        .visit-list div { display: flex; align-items: baseline; gap: 9px; color: #e5e9e3; font-size: .9rem; }
+        .visit-list div::before { content: ""; flex: 0 0 7px; width: 7px; height: 7px; margin-top: .55em; border-radius: 50%; background: #e8c18c; }
+
+        footer { background: #111a15; color: #dce2dc; padding: 32px 0; text-align: center; font-size: .96rem; }
+        footer p { margin: 4px 0; }
+        footer p:first-child { font-weight: 800; font-size: 1.12rem; }
+        footer .small { color: #b7c2ba; font-size: .86rem; }
+
+        .lightbox {
+            position: fixed; inset: 0; z-index: 10; padding: 24px;
+            display: none; place-items: center; background: rgba(9,13,11,.92);
+        }
+        .lightbox.open { display: grid; }
+        .lightbox img { max-width: min(100%, 1100px); max-height: 82vh; object-fit: contain; }
+        .lightbox-caption { color: white; text-align: center; margin-top: 8px; }
+        .lightbox-content { max-width: 1100px; }
+        .lightbox-control {
+            position: absolute; border: 1px solid rgba(255,255,255,.45); border-radius: 50%;
+            width: 44px; height: 44px; background: rgba(255,255,255,.12); color: white;
+            cursor: pointer; font-size: 1.35rem;
+        }
+        .lightbox-close { top: 20px; left: 20px; }
+        .lightbox-prev { right: 20px; top: 50%; }
+        .lightbox-next { left: 20px; top: 50%; }
+        .lightbox-control:hover { background: rgba(255,255,255,.25); }
+
+        @media (max-width: 780px) {
+            .topbar-actions { display: flex; align-items: center; gap: 8px; }
+            .theme-button { padding: 7px 11px; }
+            .hero { min-height: 610px; }
+            .hero-flag { top: 33%; left: 2%; width: min(53vw, 400px); }
+            .hero-portrait { left: 8%; width: min(34vw, 265px); height: 58%; }
+            .quick-facts { margin-top: -38px; }
+            .place-card { grid-template-columns: 1fr; }
+            .place-card:nth-child(even) .place-visual { order: 0; }
+            .place-visual, .place-visual > img { min-height: 300px; max-height: 400px; }
+            .gallery { grid-template-columns: repeat(2, 1fr); }
+            .gallery-item { height: 210px; }
+            .video-grid { grid-template-columns: 1fr; max-width: 560px; margin-inline: auto; }
+            .visit-note { grid-template-columns: 1fr; gap: 18px; }
+        }
+        @media (max-width: 480px) {
+            .wrap { width: min(100% - 28px, 1120px); }
+            .topbar-inner { min-height: 72px; }
+            .brand { font-size: 1rem; gap: 7px; }
+            .brand-mark { width: 36px; height: 36px; }
+            .theme-button { font-size: .78rem; padding: 6px 9px; }
+            .menu-button { font-size: .83rem; padding: 6px 9px; }
+            .hero { min-height: 570px; }
+            .hero-flag { top: auto; bottom: 4%; left: 1%; width: 57vw; opacity: .7; }
+            .hero-portrait { left: 7%; width: 38vw; height: 46%; }
+            .hero-content { width: 68%; margin-right: 0; margin-left: auto; }
+            .hero h1 { font-size: clamp(1.9rem, 7.7vw, 2.2rem); }
+            .hero p { font-size: .96rem; }
+            .hero-note { display: block; margin: 13px 0 0; }
+            .fact { padding: 14px 6px; }
+            .fact strong { font-size: .87rem; }
+            .fact span { font-size: .7rem; }
+            .intro { padding-top: 75px; }
+            .gallery { gap: 9px; }
+            .gallery-item { height: 155px; }
+            .visit-list { grid-template-columns: 1fr; }
+            .lightbox { padding: 14px; }
+            .lightbox-prev { right: 8px; }
+            .lightbox-next { left: 8px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+        }
+    </style>
+</head>
+<body>
+    <header class="hero" id="home">
+        <div class="topbar">
+            <div class="wrap topbar-inner">
+                <a class="brand" href="#home" aria-label="دروب الأردن - الرئيسية">
+                    <span class="brand-mark" aria-hidden="true">
+                        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="24" r="21" fill="#17251f" stroke="#eac28a" stroke-width="2"/>
+                            <path d="m8 31 8-11 7 8 6-9 11 13" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M11 36h26M20 36c1-4-2-5 0-8m5 8c2-3-1-5 2-8" stroke="#eac28a" stroke-width="2" stroke-linecap="round"/>
+                            <circle cx="29" cy="13" r="2.2" fill="#c8102e"/>
+                        </svg>
+                    </span>
+                    <span>دروب الأردن</span>
+                </a>
+                <nav class="nav-links" id="mainNav" aria-label="التنقل الرئيسي">
+                    <a href="#home">الرئيسية</a>
+                    <a href="#petra" data-destination-link="petra">البتراء الوردية - (معان)</a>
+                    <a href="#jerash" data-destination-link="jerash">الأعمدة الرومانية - (جرش)</a>
+                    <a href="#wadirum" data-destination-link="wadirum">وادي رم - (العقبة)</a>
+                </nav>
+                <div class="topbar-actions">
+                    <button class="theme-button" id="themeToggle" type="button" aria-label="تفعيل الوضع الداكن">☾ <span>الوضع الداكن</span></button>
+                    <button class="menu-button" id="menuToggle" type="button" aria-expanded="false" aria-controls="mainNav">القائمة</button>
+                </div>
+            </div>
+        </div>
+        <svg class="hero-flag" viewBox="0 0 900 600" aria-hidden="true">
+            <defs><clipPath id="jordanFlagClip"><rect width="900" height="600" rx="28"/></clipPath></defs>
+            <g clip-path="url(#jordanFlagClip)">
+                <rect width="900" height="200" fill="#111"/>
+                <rect y="200" width="900" height="200" fill="#fff"/>
+                <rect y="400" width="900" height="200" fill="#08783e"/>
+                <path d="M0 0 360 300 0 600Z" fill="#c8102e"/>
+                <path d="M140 240 165.9 245.9 163.5 281.3 198.5 286.6 169.3 306.7 186.9 337.4 153 327.2 140 360 127 327.2 93.1 337.4 110.7 306.7 81.5 286.6 116.5 281.3 114.1 245.9Z" fill="#fff"/>
+            </g>
+        </svg>
+        <img class="hero-portrait" src="Project/Media/Images/King%20Abdullah%20II.jpg" alt="جلالة الملك عبدالله الثاني ابن الحسين">
+        <div class="wrap hero-content">
+            <span class="eyebrow">حكاية أرضٍ لا تشبه سواها</span>
+            <h1>اكتشف الأردن<br>خطوةً بعد خطوة</h1>
+            <p>من ممرات البترا الوردية، إلى أعمدة جرش العريقة، ورمال وادي رم الواسعة؛ رحلة تجمع التاريخ والطبيعة والدهشة.</p>
+            <a class="button" href="#destinations">ابدأ رحلتك <span aria-hidden="true">←</span></a>
+            <span class="hero-note">ثلاث وجهات.. آلاف الحكايات</span>
+        </div>
+    </header>
+
+    <main>
+        <div class="wrap">
+            <div class="quick-facts" aria-label="معلومات عن الدليل">
+                <div class="fact"><strong>البترا</strong><span>مدينة الأنباط الوردية</span></div>
+                <div class="fact"><strong>جرش</strong><span>عبق الحضارة الرومانية</span></div>
+                <div class="fact"><strong>وادي رم</strong><span>سحر الصحراء والنجوم</span></div>
+            </div>
+        </div>
+
+        <section class="intro" id="destinations">
+            <div class="wrap">
+                <span class="section-kicker">وجهات تستحق الاكتشاف</span>
+                <h2>ثلاث محطات من قلب الأردن</h2>
+                <p>اختر وجهتك، تعرّف على أبرز معالمها، ثم استمتع بالصور والمقاطع المصوّرة المحفوظة ضمن ملفات المشروع.</p>
+            </div>
+        </section>
+
+        <section class="places wrap" aria-label="الوجهات السياحية">
+            <article class="place-card" id="petra" data-place="petra">
+                <div class="place-visual">
+                    <img src="Project/Media/Images/Petra.JPG/Petra%201.jpg" alt="الخزنة المنحوتة في صخور البترا" loading="lazy">
+                    <span class="place-count">١ / ٣ — معلم أثري</span>
+                </div>
+                <div class="place-copy">
+                    <span class="section-kicker">جنوب الأردن · معان</span>
+                    <h3>البترا.. المدينة الوردية</h3>
+                    <p>مدينة نبطية تاريخية نُحتت واجهاتها في الحجر الرملي، وتُعد من أشهر المواقع الأثرية في العالم. يبدأ سحر الزيارة من السيق وينتهي أمام واجهة الخزنة المهيبة.</p>
+                    <div class="tags"><span class="tag">آثار</span><span class="tag">تراث عالمي</span><span class="tag">مسارات مشي</span></div>
+                    <ul class="highlights">
+                        <li>اكتشف السيق والخزنة والدير والمقابر الملكية.</li>
+                        <li>خصص وقتاً كافياً للمشي، واختر حذاءً مريحاً وماءً للشرب.</li>
+                    </ul>
+                    <a class="media-link" href="#gallery" data-filter="petra">اكتشف تفاصيل البترا ←</a>
+                </div>
+            </article>
+
+            <article class="place-card" id="jerash" data-place="jerash">
+                <div class="place-visual">
+                    <img src="Project/Media/Images/Roman%20Columns.JPG/Roman%20Columns%201.jpg" alt="أعمدة أثرية في مدينة جرش" loading="lazy">
+                    <span class="place-count">٢ / ٣ — مدينة أثرية</span>
+                </div>
+                <div class="place-copy">
+                    <span class="section-kicker">شمال الأردن · جرش</span>
+                    <h3>جرش.. حكاية رومانية حيّة</h3>
+                    <p>تأخذك آثار جرش إلى مدينة رومانية بارزة، بين الشوارع المرصوفة والساحات والمعابد والمسارح. وتكشف تفاصيل أعمدتها وأحجارها عن طبقات طويلة من تاريخ المنطقة.</p>
+                    <div class="tags"><span class="tag">آثار رومانية</span><span class="tag">مسار تاريخي</span><span class="tag">ثقافة</span></div>
+                    <ul class="highlights">
+                        <li>تجوّل في الساحة البيضاوية وشارع الأعمدة والمسارح.</li>
+                        <li>توقف لملاحظة النقوش والتفاصيل المعمارية على امتداد الموقع.</li>
+                    </ul>
+                    <a class="media-link" href="#gallery" data-filter="jerash">اكتشف تفاصيل جرش ←</a>
+                </div>
+            </article>
+
+            <article class="place-card" id="wadirum" data-place="wadirum">
+                <div class="place-visual">
+                    <img src="Project/Media/Images/Wadi%20Rum.JPG/Wadi%20Rum%201.jpg" alt="جمال الصحراء والجبال الرملية في وادي رم" loading="lazy">
+                    <span class="place-count">٣ / ٣ — محمية طبيعية</span>
+                </div>
+                <div class="place-copy">
+                    <span class="section-kicker">جنوب الأردن · العقبة</span>
+                    <h3>وادي رم.. اتساع الصحراء</h3>
+                    <p>مشهد صحراوي فريد من الجبال الرملية والتكوينات الصخرية والمساحات المفتوحة. اقضِ وقتك في استكشاف الطبيعة، ومشاهدة تغيّر ألوان الرمال مع ضوء النهار.</p>
+                    <div class="tags"><span class="tag">طبيعة</span><span class="tag">سفاري</span><span class="tag">تخييم</span></div>
+                    <ul class="highlights">
+                        <li>استكشف المنطقة مع مرشد محلي واتبع تعليمات السلامة.</li>
+                        <li>اصطحب واقياً من الشمس وملابس مناسبة لتغيّر درجات الحرارة.</li>
+                    </ul>
+                    <a class="media-link" href="#gallery" data-filter="wadirum">اكتشف تفاصيل وادي رم ←</a>
+                </div>
+            </article>
+        </section>
+
+        <section class="gallery-section" id="gallery">
+            <div class="wrap">
+                <div class="section-heading">
+                    <span class="section-kicker">لحظات من الرحلة</span>
+                    <h2 id="galleryTitle">معرض الصور</h2>
+                    <p id="galleryDescription">صور مختارة مع وصف لكل مشهد، إلى جانب الجولات المصوّرة.</p>
+                    <div class="gallery-actions">
+                        <button class="gallery-back" id="galleryBack" type="button" hidden><span aria-hidden="true">→</span> رجوع</button>
+                        <button class="gallery-reset" id="galleryReset" type="button" hidden>عرض جميع الوجهات</button>
+                    </div>
+                </div>
+                <div class="gallery">
+                    <figure class="gallery-card" data-place="petra">
+                        <button class="gallery-item" type="button" data-place="petra" data-caption="الخزنة — البترا"><img src="Project/Media/Images/Petra.JPG/Petra%201.jpg" alt="الخزنة في البترا" loading="lazy"><span>الخزنة · البترا</span></button>
+                        <figcaption>واجهة الخزنة المنحوتة في الحجر الرملي، ومن أشهر الشواهد على براعة الأنباط المعمارية.</figcaption>
+                    </figure>
+                    <figure class="gallery-card" data-place="petra">
+                        <button class="gallery-item" type="button" data-place="petra" data-caption="تفاصيل من البترا"><img src="Project/Media/Images/Petra.JPG/Petra%202.jpg" alt="تفاصيل أثرية من البترا" loading="lazy"><span>تفاصيل أثرية · البترا</span></button>
+                        <figcaption>تفاصيل صخرية ومعمارية تكشف كيف امتزجت المباني القديمة بتضاريس الوادي.</figcaption>
+                    </figure>
+                    <figure class="gallery-card" data-place="petra">
+                        <button class="gallery-item" type="button" data-place="petra" data-caption="مناظر البترا"><img src="Project/Media/Images/Petra.JPG/Petra%203.jpg" alt="منظر من البترا" loading="lazy"><span>مناظر البترا</span></button>
+                        <figcaption>تدرجات الحجر الوردي تتغير مع ضوء الشمس، وتمنح المكان ألوانه المميزة.</figcaption>
+                    </figure>
+                    <figure class="gallery-card" data-place="petra">
+                        <button class="gallery-item" type="button" data-place="petra" data-caption="مشاهد من البترا"><img src="Project/Media/Images/Petra.JPG/Petra%204.jpg" alt="مشاهد أثرية من البترا" loading="lazy"><span>مشاهد البترا</span></button>
+                        <figcaption>على امتداد المسارات تظهر واجهات وممرات منحوتة في الجبال المحيطة بالمدينة.</figcaption>
+                    </figure>
+                    <figure class="gallery-card" data-place="petra">
+                        <button class="gallery-item" type="button" data-place="petra" data-caption="معالم البترا"><img src="Project/Media/Images/Petra.JPG/Petra%205.jpg" alt="معالم من مدينة البترا" loading="lazy"><span>معالم البترا</span></button>
+                        <figcaption>تعرّف على معالم المدينة الأثرية واستمتع بمشهدها الطبيعي والتاريخي.</figcaption>
+                    </figure>
+                    <figure class="gallery-card" data-place="jerash">
+                        <button class="gallery-item" type="button" data-place="jerash" data-caption="أعمدة جرش"><img src="Project/Media/Images/Roman%20Columns.JPG/Roman%20Columns%201.jpg" alt="أعمدة جرش الرومانية" loading="lazy"><span>أعمدة جرش</span></button>
+                        <figcaption>شارع الأعمدة من أبرز معالم جرش، ويعكس تخطيط المدينة في العصر الروماني.</figcaption>
+                    </figure>
+                    <figure class="gallery-card" data-place="jerash">
+                        <button class="gallery-item" type="button" data-place="jerash" data-caption="آثار جرش"><img src="Project/Media/Images/Roman%20Columns.JPG/Roman%20Columns%202.jpg" alt="آثار مدينة جرش" loading="lazy"><span>آثار جرش</span></button>
+                        <figcaption>توزعت في المدينة القديمة الساحات والمعابد والمباني العامة حول شوارعها المرصوفة.</figcaption>
+                    </figure>
+                    <figure class="gallery-card" data-place="jerash">
+                        <button class="gallery-item" type="button" data-place="jerash" data-caption="تفاصيل من جرش"><img src="Project/Media/Images/Roman%20Columns.JPG/Roman%20Columns%203.jpg" alt="تفاصيل معمارية من جرش" loading="lazy"><span>تفاصيل جرش</span></button>
+                        <figcaption>تأمل تيجان الأعمدة والحجارة المنحوتة التي بقيت شاهدة على مهارة البنّائين.</figcaption>
+                    </figure>
+                    <figure class="gallery-card" data-place="jerash">
+                        <button class="gallery-item" type="button" data-place="jerash" data-caption="مشاهد من جرش"><img src="Project/Media/Images/Roman%20Columns.JPG/Roman%20Columns%204.jpg" alt="مشهد أثري في جرش" loading="lazy"><span>مشاهد جرش</span></button>
+                        <figcaption>تمنح الآثار المحفوظة في جرش الزائر تصوراً عن الحياة في المدينة قديماً.</figcaption>
+                    </figure>
+                    <figure class="gallery-card" data-place="wadirum">
+                        <button class="gallery-item" type="button" data-place="wadirum" data-caption="طبيعة وادي رم"><img src="Project/Media/Images/Wadi%20Rum.JPG/Wadi%20Rum%201.jpg" alt="منظر صحراوي في وادي رم" loading="lazy"><span>طبيعة وادي رم</span></button>
+                        <figcaption>تشكيلات صخرية واسعة وأفق مفتوح يميزان المشهد الصحراوي في وادي رم.</figcaption>
+                    </figure>
+                    <figure class="gallery-card" data-place="wadirum">
+                        <button class="gallery-item" type="button" data-place="wadirum" data-caption="جبال وادي رم"><img src="Project/Media/Images/Wadi%20Rum.JPG/Wadi%20Rum%202.jpg" alt="جبال وادي رم" loading="lazy"><span>جبال وادي رم</span></button>
+                        <figcaption>تكوّنت الجبال الرملية عبر الزمن، وتظهر ألوانها وتفاصيلها بوضوح في ضوء النهار.</figcaption>
+                    </figure>
+                    <figure class="gallery-card" data-place="wadirum">
+                        <button class="gallery-item" type="button" data-place="wadirum" data-caption="مسارات الصحراء"><img src="Project/Media/Images/Wadi%20Rum.JPG/Wadi%20Rum%203.jpg" alt="مسارات الصحراء في وادي رم" loading="lazy"><span>مسارات الصحراء</span></button>
+                        <figcaption>تجول في الصحراء برفقة دليل محلي، والتزم بالمسارات المخصصة للزيارة.</figcaption>
+                    </figure>
+                    <figure class="gallery-card" data-place="wadirum">
+                        <button class="gallery-item" type="button" data-place="wadirum" data-caption="مشاهد من وادي رم"><img src="Project/Media/Images/Wadi%20Rum.JPG/Wadi%20Rum%204.jpg" alt="مشهد من وادي رم" loading="lazy"><span>مشاهد وادي رم</span></button>
+                        <figcaption>تجتمع الرمال والجبال في مشاهد تتبدل ألوانها بين الصباح والغروب.</figcaption>
+                    </figure>
+                    <figure class="gallery-card" data-place="wadirum">
+                        <button class="gallery-item" type="button" data-place="wadirum" data-caption="رحلات في وادي رم"><img src="Project/Media/Images/Wadi%20Rum.JPG/Wadi%20Rum%205.jpg" alt="رحلة في صحراء وادي رم" loading="lazy"><span>رحلات وادي رم</span></button>
+                        <figcaption>يمكن استكشاف المنطقة في جولة منظمة، مع الاستعداد لتغير الحرارة بين الليل والنهار.</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <section class="videos" id="videos">
+            <div class="wrap">
+                <div class="section-heading">
+                    <span class="section-kicker">شاهد المكان يتحرك</span>
+                    <h2>جولات مصوّرة</h2>
+                    <p>الفيديوهات تعمل من ملفات المشروع المحلية، ويمكن تشغيلها أو إيقافها من المشغّل.</p>
+                </div>
+                <div class="video-grid">
+                    <article class="video-card" data-place="petra">
+                        <video controls preload="none" playsinline poster="Project/Media/Images/Petra.JPG/Petra%201.jpg">
+                            <source src="Project/Media/Videos/Petra.MP4/Petra%20move.mp4" type="video/mp4">
+                            عذراً، متصفحك لا يدعم تشغيل الفيديو.
+                        </video>
+                        <h3>جولة في البترا</h3>
+                    </article>
+                    <article class="video-card" data-place="jerash">
+                        <video controls preload="none" playsinline poster="Project/Media/Images/Roman%20Columns.JPG/Roman%20Columns%201.jpg">
+                            <source src="Project/Media/Videos/Roman%20Columns.MP4/Roman%20Columns%20move.mp4" type="video/mp4">
+                            عذراً، متصفحك لا يدعم تشغيل الفيديو.
+                        </video>
+                        <h3>مشاهد من جرش</h3>
+                    </article>
+                    <article class="video-card" data-place="wadirum">
+                        <video controls preload="none" playsinline poster="Project/Media/Images/Wadi%20Rum.JPG/Wadi%20Rum%201.jpg">
+                            <source src="Project/Media/Videos/Wadi%20Rum.MP4/Wadi%20Rum%20move.mp4" type="video/mp4">
+                            عذراً، متصفحك لا يدعم تشغيل الفيديو.
+                        </video>
+                        <h3>رحلة في وادي رم</h3>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <aside class="visit-note wrap" aria-label="نصائح للزيارة">
+            <div>
+                <span class="section-kicker">قبل الانطلاق</span>
+                <h2>رحلة أجمل.. باستعداد بسيط</h2>
+                <p>خطّط لزيارتك مسبقاً، واستمتع بالمكان مع احترام الطبيعة والآثار والمجتمعات المحلية.</p>
+            </div>
+            <div class="visit-list">
+                <div>تحقق من أوقات الزيارة والرسوم من المصادر الرسمية.</div>
+                <div>ارتدِ حذاءً مريحاً وخذ معك ماءً كافياً.</div>
+                <div>التزم بالمسارات والإرشادات المحلية.</div>
+                <div>اترك المكان نظيفاً واحترم المواقع الأثرية.</div>
+            </div>
+        </aside>
+    </main>
+
+    <footer>
+        <div class="wrap">
+            <p>دروب الأردن</p>
+            <p class="small">دليل سياحي تفاعلي للأردن | جامعة اليرموك</p>
+            <p class="small">جميع الحقوق محفوظة © 2026</p>
+        </div>
+    </footer>
+
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="عارض الصور">
+        <button class="lightbox-control lightbox-close" id="lightboxClose" type="button" aria-label="إغلاق">×</button>
+        <button class="lightbox-control lightbox-prev" id="lightboxPrev" type="button" aria-label="الصورة السابقة">‹</button>
+        <div class="lightbox-content">
+            <img id="lightboxImage" src="" alt="">
+            <div class="lightbox-caption" id="lightboxCaption"></div>
+        </div>
+        <button class="lightbox-control lightbox-next" id="lightboxNext" type="button" aria-label="الصورة التالية">›</button>
+    </div>
+
+    <script>
+        const themeToggle = document.getElementById("themeToggle");
+        const themeLabel = themeToggle.querySelector("span");
+        const themeColor = document.querySelector('meta[name="theme-color"]');
+        const storedTheme = localStorage.getItem("jordan-guide-theme");
+        if (storedTheme === "dark") document.documentElement.dataset.theme = "dark";
+
+        function updateThemeButton() {
+            const isDark = document.documentElement.dataset.theme === "dark";
+            themeToggle.firstChild.textContent = isDark ? "☀ " : "☾ ";
+            themeLabel.textContent = isDark ? "الوضع الفاتح" : "الوضع الداكن";
+            themeToggle.setAttribute("aria-label", isDark ? "تفعيل الوضع الفاتح" : "تفعيل الوضع الداكن");
+            themeColor.content = isDark ? "#101826" : "#f7f5ef";
+        }
+        updateThemeButton();
+        themeToggle.addEventListener("click", () => {
+            const isDark = document.documentElement.dataset.theme !== "dark";
+            document.documentElement.dataset.theme = isDark ? "dark" : "light";
+            if (!isDark) document.documentElement.removeAttribute("data-theme");
+            localStorage.setItem("jordan-guide-theme", isDark ? "dark" : "light");
+            updateThemeButton();
+        });
+
+        const menuToggle = document.getElementById("menuToggle");
+        const mainNav = document.getElementById("mainNav");
+        menuToggle.addEventListener("click", () => {
+            const isOpen = mainNav.classList.toggle("open");
+            menuToggle.setAttribute("aria-expanded", String(isOpen));
+        });
+        mainNav.addEventListener("click", event => {
+            const link = event.target.closest("a");
+            if (link) {
+                if (link.dataset.destinationLink || link.getAttribute("href") === "#home") {
+                    resetDestinationView();
+                }
+                mainNav.classList.remove("open");
+                menuToggle.setAttribute("aria-expanded", "false");
+            }
+        });
+
+        const galleryItems = Array.from(document.querySelectorAll(".gallery-item"));
+        const galleryCards = Array.from(document.querySelectorAll(".gallery-card"));
+        const destinationCards = Array.from(document.querySelectorAll(".place-card"));
+        const videoCards = Array.from(document.querySelectorAll(".video-card"));
+        const galleryTitle = document.getElementById("galleryTitle");
+        const galleryDescription = document.getElementById("galleryDescription");
+        const galleryBack = document.getElementById("galleryBack");
+        const galleryReset = document.getElementById("galleryReset");
+        const destinationIntro = document.querySelector(".intro");
+        const quickFacts = document.querySelector(".quick-facts");
+        const visitNote = document.querySelector(".visit-note");
+        let returnScrollPosition = 0;
+        let returnHash = "#home";
+        let hasReturnPosition = false;
+        const galleryCopy = {
+            petra: {
+                title: "البتراء الوردية — صور وشروحات",
+                description: "مدينة الأنباط المنحوتة في الحجر الرملي؛ تعرّف على السيق والخزنة والدير من خلال الصور ووصف كل مشهد والجولة المصوّرة."
+            },
+            jerash: {
+                title: "الأعمدة الرومانية في جرش — صور وشروحات",
+                description: "شوارع مرصوفة وساحات ومعابد ومسارح رومانية؛ تعرّف على تفاصيل العمارة القديمة من خلال الصور ووصفها والجولة المصوّرة."
+            },
+            wadirum: {
+                title: "وادي رم — صور وشروحات",
+                description: "جبال رملية وتكوينات صخرية ومساحات صحراوية مفتوحة؛ اكتشف طبيعة وادي رم من خلال الصور ووصف كل مشهد والجولة المصوّرة."
+            }
+        };
+        function showDestination(place) {
+            const copy = galleryCopy[place];
+            if (!copy) return;
+            destinationCards.forEach(card => { card.hidden = card.dataset.place !== place; });
+            galleryCards.forEach(card => { card.hidden = card.dataset.place !== place; });
+            videoCards.forEach(card => { card.hidden = card.dataset.place !== place; });
+            destinationIntro.hidden = true;
+            quickFacts.hidden = true;
+            visitNote.hidden = true;
+            galleryTitle.textContent = copy.title;
+            galleryDescription.textContent = copy.description;
+            galleryBack.hidden = false;
+            galleryReset.hidden = false;
+        }
+        function resetDestinationView() {
+            destinationCards.forEach(card => { card.hidden = false; });
+            galleryCards.forEach(card => { card.hidden = false; });
+            videoCards.forEach(card => { card.hidden = false; });
+            destinationIntro.hidden = false;
+            quickFacts.hidden = false;
+            visitNote.hidden = false;
+            galleryTitle.textContent = "معرض الصور";
+            galleryDescription.textContent = "صور مختارة مع وصف لكل مشهد، إلى جانب الجولات المصوّرة.";
+            galleryBack.hidden = true;
+            galleryReset.hidden = true;
+            hasReturnPosition = false;
+        }
+        document.querySelectorAll(".media-link[data-filter]").forEach(link => {
+            link.addEventListener("click", event => {
+                event.preventDefault();
+                if (!hasReturnPosition) {
+                    returnScrollPosition = window.scrollY;
+                    returnHash = window.location.hash || "#home";
+                    hasReturnPosition = true;
+                }
+                showDestination(link.dataset.filter);
+                history.replaceState(null, "", "#gallery");
+                document.getElementById("gallery").scrollIntoView({ behavior: "smooth" });
+            });
+        });
+        galleryReset.addEventListener("click", resetDestinationView);
+        galleryBack.addEventListener("click", () => {
+            if (!hasReturnPosition) return;
+            const scrollPosition = returnScrollPosition;
+            const previousHash = returnHash;
+            resetDestinationView();
+            history.replaceState(null, "", previousHash);
+            window.scrollTo({ top: scrollPosition, behavior: "smooth" });
+        });
+
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImage = document.getElementById("lightboxImage");
+        const lightboxCaption = document.getElementById("lightboxCaption");
+        let currentImage = 0;
+
+        function showImage(index) {
+            const visibleItems = galleryItems.filter(item => !item.closest(".gallery-card").hidden);
+            currentImage = (index + visibleItems.length) % visibleItems.length;
+            const item = visibleItems[currentImage];
+            const image = item.querySelector("img");
+            lightboxImage.src = image.src;
+            lightboxImage.alt = image.alt;
+            lightboxCaption.textContent = item.dataset.caption;
+        }
+        function closeLightbox() {
+            lightbox.classList.remove("open");
+            document.body.style.overflow = "";
+        }
+        galleryItems.forEach(item => item.addEventListener("click", () => {
+            const visibleItems = galleryItems.filter(galleryItem => !galleryItem.closest(".gallery-card").hidden);
+            showImage(visibleItems.indexOf(item));
+            lightbox.classList.add("open");
+            document.body.style.overflow = "hidden";
+            document.getElementById("lightboxClose").focus();
+        }));
+        document.getElementById("lightboxClose").addEventListener("click", closeLightbox);
+        document.getElementById("lightboxPrev").addEventListener("click", () => showImage(currentImage - 1));
+        document.getElementById("lightboxNext").addEventListener("click", () => showImage(currentImage + 1));
+        lightbox.addEventListener("click", event => {
+            if (event.target === lightbox) closeLightbox();
+        });
+        document.addEventListener("keydown", event => {
+            if (!lightbox.classList.contains("open")) return;
+            if (event.key === "Escape") closeLightbox();
+            if (event.key === "ArrowRight") showImage(currentImage - 1);
+            if (event.key === "ArrowLeft") showImage(currentImage + 1);
+        });
+    </script>
+</body>
+</html>
