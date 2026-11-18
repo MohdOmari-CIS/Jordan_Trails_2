@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#17251f">
+    <meta name="description" content="تعرّف على محافظات الأردن ومعالمها السياحية.">
+    <title>محافظات ومعالم الأردن | دروب الأردن</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="destinations.css">
+    <script src="jordan-map.js" defer></script>
+    <script src="destinations.js" defer></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="shell header-inner">
+            <a class="brand" href="index.html" aria-label="دروب الأردن - الرئيسية">
+                <span class="brand-mark" aria-hidden="true">د</span>
+                <span data-copy="brand">دروب الأردن</span>
+            </a>
+            <div class="header-actions">
+                <button class="header-button" id="languageToggle" type="button" aria-label="Switch language">EN · English</button>
+                <button class="header-button" id="themeToggle" type="button" aria-label="تفعيل الوضع الداكن">☾ <span id="themeLabel">الوضع الداكن</span></button>
+                <a class="header-link" href="index.html" data-copy="homeLink">الصفحة الرئيسية</a>
+            </div>
+        </div>
+    </header>
+    <main class="shell page-shell">
+        <nav class="breadcrumbs" id="breadcrumbs" aria-label="مسار التنقل"></nav>
+        <div id="destinationApp" aria-live="polite">
+            <p class="status-message" data-copy="loading">جارٍ تحميل بيانات الوجهات...</p>
+        </div>
+    </main>
+    <footer class="site-footer">
+        <div class="shell">
+            <a href="index.html" data-copy="footerBrand">دروب الأردن</a>
+            <p data-copy="footerNote">البيانات التي لم يكتمل التحقق منها موضحة بوضوح.</p>
+        </div>
+    </footer>
+</body>
+</html>

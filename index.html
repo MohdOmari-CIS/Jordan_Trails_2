@@ -128,6 +128,9 @@
             font-weight: 800; transition: transform .2s, background .2s;
         }
         .button:hover { transform: translateY(-2px); background: #f2d4a9; }
+        .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+        .button.secondary { border: 1px solid rgba(255,255,255,.7); background: rgba(15,24,19,.32); color: #fff; }
+        .button.secondary:hover { background: rgba(255,255,255,.14); }
         .hero-note { display: inline-flex; align-items: center; gap: 8px; margin-inline-start: 18px; color: rgba(255,255,255,.83); font-size: .9rem; }
 
         .quick-facts {
@@ -170,6 +173,7 @@
         .highlights li::before { content: ""; flex: 0 0 7px; width: 7px; height: 7px; margin-top: .55em; border-radius: 50%; background: #b1814c; }
         .media-link { color: var(--green); font-weight: 800; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 2px; }
         .media-link:hover { opacity: .75; }
+        .destination-page-link { display: table; margin-top: 9px; }
 
         .gallery-section { padding: 72px 0 88px; background: var(--surface); border-block: 1px solid var(--line); }
         .section-heading { text-align: center; margin-bottom: 30px; }
@@ -302,6 +306,7 @@
             *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
         }
     </style>
+    <link rel="stylesheet" href="consultant.css">
 </head>
 <body>
     <header class="hero" id="home">
@@ -324,6 +329,7 @@
                     <a href="#petra" data-destination-link="petra">البتراء الوردية - (معان)</a>
                     <a href="#jerash" data-destination-link="jerash">الأعمدة الرومانية - (جرش)</a>
                     <a href="#wadirum" data-destination-link="wadirum">وادي رم - (العقبة)</a>
+                    <a href="destinations.html?view=governorates">محافظات الأردن</a>
                 </nav>
                 <div class="topbar-actions">
                     <button class="theme-button" id="themeToggle" type="button" aria-label="تفعيل الوضع الداكن">☾ <span>الوضع الداكن</span></button>
@@ -347,7 +353,10 @@
             <span class="eyebrow">حكاية أرضٍ لا تشبه سواها</span>
             <h1>اكتشف الأردن<br>خطوةً بعد خطوة</h1>
             <p>من ممرات البترا الوردية، إلى أعمدة جرش العريقة، ورمال وادي رم الواسعة؛ رحلة تجمع التاريخ والطبيعة والدهشة.</p>
-            <a class="button" href="#destinations">ابدأ رحلتك <span aria-hidden="true">←</span></a>
+            <div class="hero-actions">
+                <a class="button" href="#destinations">ابدأ رحلتك <span aria-hidden="true">←</span></a>
+                <a class="button secondary" id="governorateDirectoryButton" href="destinations.html?view=governorates">استكشف المحافظات</a>
+            </div>
             <span class="hero-note">ثلاث وجهات.. آلاف الحكايات</span>
         </div>
     </header>
@@ -369,6 +378,56 @@
             </div>
         </section>
 
+        <section class="advisor-section" id="tripAdvisor">
+            <div class="wrap">
+                <div class="section-heading advisor-heading">
+                    <span class="section-kicker" id="advisorKicker">مستشارك السياحي</span>
+                    <h2 id="advisorTitle">اكتشف الأردن بالطريقة التي تناسبك</h2>
+                    <p id="advisorIntro">أجب عن بعض الأسئلة، ودع دروب الأردن يقترح وجهات تناسب اهتماماتك.</p>
+                </div>
+                <div class="advisor-chat" id="advisorChat">
+                    <div class="advisor-progress">
+                        <span id="advisorProgressText" aria-live="polite">السؤال 1 من 7</span>
+                        <progress id="advisorProgress" max="7" value="1" aria-label="تقدم الأسئلة"></progress>
+                    </div>
+                    <div class="advisor-question" id="advisorQuestion" aria-live="polite" tabindex="-1"></div>
+                    <div class="advisor-options" id="advisorOptions"></div>
+                    <div class="advisor-followup" id="advisorFollowup"></div>
+                    <p class="advisor-feedback" id="advisorFeedback" role="status" aria-live="polite"></p>
+                    <div class="advisor-actions">
+                        <button class="advisor-button secondary" id="advisorBack" type="button" disabled>السابق</button>
+                        <button class="advisor-button primary" id="advisorNext" type="button" disabled>التالي</button>
+                    </div>
+                </div>
+                <section class="advisor-results" id="advisorResults" hidden aria-labelledby="advisorResultsTitle">
+                    <div class="advisor-results-heading">
+                        <div>
+                            <span class="section-kicker" id="advisorResultsKicker">نتائج الترشيح</span>
+                            <h3 id="advisorResultsTitle">وجهات مقترحة تناسبك</h3>
+                            <p id="advisorResultsNote"></p>
+                        </div>
+                        <button class="advisor-button secondary" id="advisorRestart" type="button">ابدأ من جديد</button>
+                    </div>
+                    <div class="advisor-result-list" id="advisorResultList"></div>
+                    <div class="advisor-map-actions">
+                        <button class="advisor-button secondary" id="advisorMapToggle" type="button" aria-expanded="false">عرض جميع الوجهات على الخريطة</button>
+                    </div>
+                    <section class="advisor-map-panel" id="advisorMapPanel" hidden aria-label="خريطة الوجهات المقترحة">
+                        <div class="advisor-map-filters">
+                            <label for="advisorMapGovernorate"><span id="advisorMapGovernorateLabel">المحافظة</span>
+                                <select id="advisorMapGovernorate"></select>
+                            </label>
+                            <label for="advisorMapCategory"><span id="advisorMapCategoryLabel">التصنيف</span>
+                                <select id="advisorMapCategory"></select>
+                            </label>
+                        </div>
+                        <div class="jordan-map" id="advisorMap" role="region" aria-label="خريطة تفاعلية للأردن"></div>
+                        <p class="map-unavailable" id="advisorMapStatus" role="status" aria-live="polite"></p>
+                    </section>
+                </section>
+            </div>
+        </section>
+
         <section class="places wrap" aria-label="الوجهات السياحية">
             <article class="place-card" id="petra" data-place="petra">
                 <div class="place-visual">
@@ -385,6 +444,7 @@
                         <li>خصص وقتاً كافياً للمشي، واختر حذاءً مريحاً وماءً للشرب.</li>
                     </ul>
                     <a class="media-link" href="#gallery" data-filter="petra">اكتشف تفاصيل البترا ←</a>
+                    <a class="media-link destination-page-link" href="destinations.html?attraction=maan-petra">صفحة البتراء التفصيلية</a>
                 </div>
             </article>
 
@@ -403,6 +463,7 @@
                         <li>توقف لملاحظة النقوش والتفاصيل المعمارية على امتداد الموقع.</li>
                     </ul>
                     <a class="media-link" href="#gallery" data-filter="jerash">اكتشف تفاصيل جرش ←</a>
+                    <a class="media-link destination-page-link" href="destinations.html?attraction=jerash-archaeological-city">صفحة جرش التفصيلية</a>
                 </div>
             </article>
 
@@ -421,6 +482,7 @@
                         <li>اصطحب واقياً من الشمس وملابس مناسبة لتغيّر درجات الحرارة.</li>
                     </ul>
                     <a class="media-link" href="#gallery" data-filter="wadirum">اكتشف تفاصيل وادي رم ←</a>
+                    <a class="media-link destination-page-link" href="destinations.html?attraction=aqaba-wadi-rum">صفحة وادي رم التفصيلية</a>
                 </div>
             </article>
         </section>
@@ -594,7 +656,7 @@
 
         const englishText = {
             ".brand > span:last-child": ["Jordan Trails"],
-            ".nav-links a": ["Home", "The Rose City of Petra - Ma'an", "Roman Columns - Jerash", "Wadi Rum - Aqaba"],
+            ".nav-links a": ["Home", "The Rose City of Petra - Ma'an", "Roman Columns - Jerash", "Wadi Rum - Aqaba", "Jordan Governorates"],
             ".menu-button": ["Menu"],
             ".hero .eyebrow": ["A land like no other"],
             ".hero p": ["From Petra's rose-colored passages to Jerash's ancient columns and Wadi Rum's vast sands, discover a journey through history, nature, and wonder."],
@@ -604,6 +666,29 @@
             ".intro .section-kicker": ["Destinations worth discovering"],
             ".intro h2": ["Three stops in the heart of Jordan"],
             ".intro p": ["Choose a destination, discover its highlights, then enjoy photos and videos included with the project."],
+            "#advisorKicker": ["Your travel advisor"],
+            "#advisorTitle": ["Discover Jordan Your Way"],
+            "#advisorIntro": ["Answer a few questions and let Jordan Trails suggest destinations that match your interests."],
+            "#governorateDirectoryButton": ["Explore all governorates"],
+            "#advisorResultsKicker": ["Your recommendations"],
+            "#advisorResultsTitle": ["Recommended destinations for you"],
+            "#advisorBack": ["Back"],
+            "#advisorNext": ["Next"],
+            "#advisorRestart": ["Start Again"],
+            "#advisorMapToggle": ["View All Destinations on Map"],
+            "#advisorMapGovernorateLabel": ["Governorate"],
+            "#advisorMapCategoryLabel": ["Category"],
+            "#advisorKicker": ["Your travel advisor"],
+            "#advisorTitle": ["Discover Jordan Your Way"],
+            "#advisorIntro": ["Answer a few questions and let Jordan Trails suggest destinations that match your interests."],
+            "#advisorResultsKicker": ["Your recommendations"],
+            "#advisorResultsTitle": ["Recommended destinations for you"],
+            "#advisorBack": ["Back"],
+            "#advisorNext": ["Next"],
+            "#advisorRestart": ["Start Again"],
+            "#advisorMapToggle": ["View All Destinations on Map"],
+            "#advisorMapGovernorateLabel": ["Governorate"],
+            "#advisorMapCategoryLabel": ["Category"],
             ".place-card .section-kicker": ["Southern Jordan · Ma'an", "Northern Jordan · Jerash", "Southern Jordan · Aqaba"],
             ".place-count": ["1 / 3 — Archaeological site", "2 / 3 — Ancient city", "3 / 3 — Nature reserve"],
             ".place-card h3": ["Petra, the Rose City", "Jerash, a living Roman story", "Wadi Rum, the open desert"],
@@ -621,7 +706,8 @@
                 "Explore with a local guide and follow safety instructions.",
                 "Bring sun protection and clothing for changing temperatures."
             ],
-            ".place-card .media-link": ["Explore Petra →", "Explore Jerash →", "Explore Wadi Rum →"],
+            ".place-card .media-link:not(.destination-page-link)": ["Explore Petra →", "Explore Jerash →", "Explore Wadi Rum →"],
+            ".destination-page-link": ["Petra details page", "Jerash details page", "Wadi Rum details page"],
             ".gallery-section .section-kicker": ["Moments from the journey"],
             "#galleryReset": ["Show all destinations"],
             ".gallery-item span": [
@@ -958,5 +1044,7 @@
         });
         setLanguage(currentLanguage);
     </script>
+    <script src="jordan-map.js"></script>
+    <script src="consultant.js"></script>
 </body>
 </html>
